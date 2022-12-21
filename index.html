@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="./css/style.css">
         <title>Document</title>
     </head>
@@ -13,24 +14,39 @@
                 <!-- sidebar -->
                 <div class="sidebar">
                     <div class="top-sidebar">
-                        <div class="user-top-sidebar">
-
+                        <div class="image-contact">
+                            <img src="./img/avatar_io.jpg">
+                            <span>Sofia</span>
                         </div>
                         <div class="icons-top-sidebar">
-
+                            <ul class="unstyled-list">
+                                <li class="text-grey"><i class="fa-solid fa-circle-notch"></i></li>
+                                <li class="text-grey"><i class="fa-solid fa-message"></i></li>
+                                <li class="text-grey"><i class="fa-solid fa-ellipsis-vertical"></i></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="notify-sidebar">
+                        <i class="fa-solid fa-bell-slash circle-white"></i>
+                        <div class="flex-column font-size-12">
+                            <span>Ricevi notifiche di nuovi messaggi</span>
+                            <a href="">Attiva notifiche desktop</a>
+                        </div>
                     </div>
                     <div class="searchbar-sidebar">
+                        <i class="fa-solid fa-magnifying-glass text-grey bg-white"></i>
+                        <input type="text" placeholder="Cerca o inizia una nuova chat" class="full-searchbar" name="" id="">
                     </div>
                     <div class="chat-sidebar">
                         <ul class="unstyled-list">
-                            <li v-for="item in contacts">
+                            <li class="item-chat" v-for="(item, index) in contacts" :class="(chat_active == index) ? 'active' : ''">
                                 <div class="image-contact">
                                     <img :src="`./img/${item.avatar}`">
                                 </div>
-                                {{ item.name }}
+                                <div class="info-contact">
+                                    <span>{{ item.name }}</span>
+                                    <span class="font-size-12 text-grey">Ultimo messaggio ricevuto</span>
+                                </div>
                             </li> 
                         </ul>
                     </div>
@@ -47,8 +63,12 @@
                     </div>
                     <div class="chat-container">
                         <ul class="unstyled-list">
-                            <li v-for="(item, index) in contacts">
-                                {{ item.messages[0].message }}
+                            <li class="list-item" v-for="(item, index) in contacts[chat_active].messages"
+                            :class="(item.status == 'sent') ? 'message-sent' : ''">
+                            <div class="message" :class="(item.status == 'sent') ? 'bg-green' : 'bg-white'">
+                                <span>{{ item.message }}</span>
+                                <span>{{ item.date }}</span>
+                            </div>
                             </li>
                         </ul>
                     </div>
