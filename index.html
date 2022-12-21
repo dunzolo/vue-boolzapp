@@ -25,6 +25,14 @@
                     <div class="searchbar-sidebar">
                     </div>
                     <div class="chat-sidebar">
+                        <ul class="unstyled-list">
+                            <li v-for="item in contacts">
+                                <div class="image-contact">
+                                    <img :src="`./img/${item.avatar}`">
+                                </div>
+                                {{ item.name }}
+                            </li> 
+                        </ul>
                     </div>
                 </div>
                 <!-- main container -->
@@ -36,6 +44,13 @@
                         <div class="icons-main-container">
 
                         </div>
+                    </div>
+                    <div class="chat-container">
+                        <ul class="unstyled-list">
+                            <li v-for="(item, index) in contacts">
+                                {{ item.messages[0].message }}
+                            </li>
+                        </ul>
                     </div>
                     <div class="bottombar-main-container">
                         <div class="emoji">
