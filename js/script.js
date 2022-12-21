@@ -6,6 +6,7 @@ createApp({
     data() {
         return {
             chat_active: 0,
+            new_message: '',
             contacts: [
                 {
                     name: 'Michele',
@@ -143,6 +144,43 @@ createApp({
         },
         changeChat(index){
             this.chat_active = index
+        },
+        sendNewMessage(){
+            let new_date = this.generateNewDate();
+
+ 
+            let object = {
+                date: new_date,
+                message: this.new_message,
+                status: 'sent'
+            };
+
+            this.contacts[this.chat_active].messages.push(object);
+            this.new_message = '';
+
+            setTimeout(() => {
+                let new_date = this.generateNewDate();
+
+                let object = {
+                    date: new_date,
+                    message: 'ok',
+                    status: 'received'
+                }
+
+                this.contacts[this.chat_active].messages.push(object);
+
+            },1000)
+        },
+        generateNewDate(){
+            let today = new Date();
+            let new_date = today.getDate() + '/' + 
+                (today.getMonth()+1) + '/' + 
+                today.getFullYear() + ' ' + 
+                today.getHours() + ':' + 
+                ((today.getMinutes()<10 ? '0' : '') + today.getMinutes()) + ':' + 
+                ((today.getSeconds()<10 ? '0' : '') + today.getSeconds());
+
+            return new_date;
         }
     },
 }).mount('#app')

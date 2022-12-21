@@ -87,7 +87,7 @@
                             <i class="fa-regular fa-face-smile"></i>
                         </div>
                         <div class="text-bar">
-                            <input type="text" placeholder="Scrivi un messaggio">
+                            <input type="text" placeholder="Scrivi un messaggio" v-model="new_message" @keyup.enter="sendNewMessage">
                         </div>
                         <div class="microphone text-darkgrey">
                             <i class="fa-solid fa-microphone"></i>
