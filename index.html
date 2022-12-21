@@ -39,7 +39,7 @@
                     </div>
                     <div class="chat-sidebar">
                         <ul class="unstyled-list">
-                            <li class="item-chat" v-for="(item, index) in contacts" :class="(chat_active == index) ? 'active' : ''">
+                            <li class="item-chat" v-for="(item, index) in contacts" :class="(chat_active == index) ? 'active' : ''" @click="changeChat(index)">
                                 <div class="image-contact">
                                     <img :src="`./img/${item.avatar}`">
                                 </div>
@@ -76,8 +76,8 @@
                             <li class="list-item" v-for="(item, index) in contacts[chat_active].messages"
                             :class="(item.status == 'sent') ? 'message-sent' : ''">
                             <div class="message" :class="(item.status == 'sent') ? 'bg-green' : 'bg-white'">
-                                <span>{{ item.message }}</span>
-                                <span>{{ item.date }}</span>
+                                <span class="font-size-15">{{ item.message }}</span>
+                                <span class="font-size-10 text-grey absolute">{{ item.date }}</span>
                             </div>
                             </li>
                         </ul>
