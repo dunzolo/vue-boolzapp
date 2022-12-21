@@ -5,6 +5,7 @@ const{
 createApp({
     data() {
         return {
+            chat_active: 3,
             contacts: [
                 {
                     name: 'Michele',
@@ -127,8 +128,14 @@ createApp({
                         status: 'sent'
                     }
                     ],
-                },
+                }
             ]
         }
+    },
+    created(){
+        console.log(this.contacts[this.chat_active].avatar);
+    },    
+    methods: {
+        
     },
 }).mount('#app')

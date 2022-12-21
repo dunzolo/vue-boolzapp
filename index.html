@@ -18,7 +18,7 @@
                             <img src="./img/avatar_io.jpg">
                             <span>Sofia</span>
                         </div>
-                        <div class="icons-top-sidebar">
+                        <div class="icons-top margin-right-10">
                             <ul class="unstyled-list">
                                 <li class="text-grey"><i class="fa-solid fa-circle-notch"></i></li>
                                 <li class="text-grey"><i class="fa-solid fa-message"></i></li>
@@ -55,10 +55,20 @@
                 <div class="main-container">
                     <div class="top-main-container">
                         <div class="user-main-container">
-
+                            <div class="image-contact">
+                                <img :src="`./img/${contacts[chat_active].avatar}`">
+                            </div>
+                            <div class="info-contact">
+                                <span>{{ contacts[chat_active].name }}</span>
+                                <span class="font-size-12 text-grey">Ultimo accesso oggi alle 12:00</span>
+                            </div>
                         </div>
-                        <div class="icons-main-container">
-
+                        <div class="icons-top margin-right-10">
+                            <ul class="unstyled-list">
+                                <li class="text-grey"><i class="fa-solid fa-magnifying-glass"></i></li>
+                                <li class="text-grey"><i class="fa-solid fa-paperclip"></i></li>
+                                <li class="text-grey"><i class="fa-solid fa-ellipsis-vertical"></i></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="chat-container">
@@ -73,11 +83,14 @@
                         </ul>
                     </div>
                     <div class="bottombar-main-container">
-                        <div class="emoji">
+                        <div class="emoji text-darkgrey">
+                            <i class="fa-regular fa-face-smile"></i>
                         </div>
                         <div class="text-bar">
+                            <input type="text" placeholder="Scrivi un messaggio">
                         </div>
-                        <div class="microphone">
+                        <div class="microphone text-darkgrey">
+                            <i class="fa-solid fa-microphone"></i>
                         </div>                        
                     </div>
                 </div>
