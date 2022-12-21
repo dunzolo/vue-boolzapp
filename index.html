@@ -77,7 +77,7 @@
                             :class="(item.status == 'sent') ? 'message-sent' : ''">
                             <div class="message" :class="(item.status == 'sent') ? 'bg-green' : 'bg-white'">
                                 <span class="font-size-15">{{ item.message }}</span>
-                                <span class="font-size-10 text-grey absolute">{{ item.date }}</span>
+                                <span class="font-size-10 text-grey absolute">{{ splitDate(item.date) }}</span>
                             </div>
                             </li>
                         </ul>

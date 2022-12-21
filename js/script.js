@@ -133,9 +133,14 @@ createApp({
         }
     },
     created(){
-
+        
     },    
     methods: {
+        splitDate(date){
+            //divido la stringa con lo spazio, prendo il secondo elemento dell'array e prendo le prima 5 lettere
+            let new_date = date.split(' ')[1].substring(0, 5);
+            return new_date;
+        },
         changeChat(index){
             this.chat_active = index
         }
