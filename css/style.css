@@ -156,6 +156,7 @@
 
 .chat-sidebar ul li, .icons-top ul{
     display: flex;
+    position: relative;
 }
 
 .chat-sidebar li{
@@ -185,6 +186,13 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.hour-last-message{
+    position: absolute;
+    top: 0;
+    right: 5px;
+    padding: 10px;
 }
 /* fine sidebar */
 

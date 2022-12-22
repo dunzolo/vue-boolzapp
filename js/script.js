@@ -14,6 +14,7 @@ createApp({
             },
             contacts: [
                 {
+                    id: 0,
                     name: 'Michele',
                     avatar: '_1',
                     visible: true,
@@ -36,6 +37,7 @@ createApp({
                     ],
                 },
                 {
+                    id: 1,
                     name: 'Fabio',
                     avatar: '_2',
                     visible: true,
@@ -58,6 +60,7 @@ createApp({
                     ],
                 },
                 {
+                    id: 2,
                     name: 'Samuele',
                     avatar: '_3',
                     visible: true,
@@ -80,6 +83,7 @@ createApp({
                     ],
                 },
                 {
+                    id: 3,
                     name: 'Alessandro B.',
                     avatar: '_4',
                     visible: true,
@@ -97,6 +101,7 @@ createApp({
                     ],
                 },
                 {
+                    id: 4,
                     name: 'Alessandro L.',
                     avatar: '_5',
                     visible: true,
@@ -114,6 +119,7 @@ createApp({
                     ],
                 },
                 {
+                    id: 5,
                     name: 'Claudia',
                     avatar: '_6',
                     visible: true,
@@ -142,11 +148,20 @@ createApp({
         searchChat(){
             let filteredChat;
             if(this.name_filter != ''){
-                filteredChat = this.contacts.filter((elem) => {
-                    return elem.name.toLowerCase().includes(this.name_filter);
-                })
+                for(let i = 0; i < this.contacts.length; i++){
+                    if(this.contacts[i].name.toLowerCase().includes(this.name_filter)){
+                        this.contacts[i].visible = true
+                    }
+                    else{
+                        this.contacts[i].visible = false
+                    }
+                }
+                filteredChat = this.contacts;
             }
             else{
+                for(let i = 0; i < this.contacts.length; i++){
+                    this.contacts[i].visible = true
+                }
                 filteredChat = this.contacts;
             }
             return filteredChat;
@@ -165,7 +180,6 @@ createApp({
         sendNewMessage(){
             let new_date = this.generateNewDate();
 
- 
             let object = {
                 date: new_date,
                 message: this.new_message,
@@ -187,6 +201,31 @@ createApp({
                 this.contacts[this.chat_active].messages.push(object);
 
             },1000)
+        },
+        hourLastMessageSent(index){
+            let messages = this.contacts[index].messages;
+            let filter_messages = messages.filter((elem) => {
+                return elem.status.includes('sent');
+            })
+            let date = this.splitDate(filter_messages[filter_messages.length - 1].date);
+            return date;
+        },
+        hourLastMessage(index){
+            let messages = this.contacts[index].messages;
+            let hour_last_message = this.splitDate(messages[messages.length - 1].date);
+            return hour_last_message;
+        },
+        lastMessage(index){
+            let messages = this.contacts[index].messages;
+            let last_message = messages[messages.length-1].message;
+            if(last_message.length > 25){
+                last_message = last_message.substring(0,25) + '...'
+            }
+            else{
+                return last_message
+            }
+            return last_message;
+            
         },
         generateNewDate(){
             let today = new Date();

@@ -39,15 +39,16 @@
                         <input type="text" placeholder="Cerca o inizia una nuova chat" class="full-searchbar" name="searchbar" id="searchbar" v-model="name_filter">
                     </div>
                     <div class="chat-sidebar">
-                        <ul class="unstyled-list">
-                            <li class="item-chat" v-for="(item, index) in searchChat" :class="(chat_active == index) ? 'active' : ''" @click="changeChat(index)">
+                        <ul class="unstyled-list" v-for="(item, index) in searchChat">
+                            <li v-if="item.visible" class="item-chat" :class="(chat_active == index) ? 'active' : ''" @click="changeChat(index)">
                                 <div class="image-contact">
                                     <img :src="`./img/avatar${item.avatar}.jpg`">
                                 </div>
                                 <div class="info-contact">
                                     <span>{{ item.name }}</span>
-                                    <span class="font-size-12 text-grey">Ultimo messaggio ricevuto</span>
+                                    <span class="font-size-12 text-grey">{{ lastMessage(index) }}</span>
                                 </div>
+                                <span class="hour-last-message font-size-12 text-grey">{{ hourLastMessage(index) }}</span>
                             </li> 
                         </ul>
                     </div>
@@ -61,7 +62,7 @@
                             </div>
                             <div class="info-contact">
                                 <span>{{ contacts[chat_active].name }}</span>
-                                <span class="font-size-12 text-grey">Ultimo accesso oggi alle 12:00</span>
+                                <span class="font-size-12 text-grey">Ultimo accesso oggi alle {{ hourLastMessageSent(chat_active)}}</span>
                             </div>
                         </div>
                         <div class="icons-top margin-right-10">
@@ -74,12 +75,11 @@
                     </div>
                     <div class="chat-container">
                         <ul class="unstyled-list">
-                            <li class="list-item" v-for="(item, index) in contacts[chat_active].messages"
-                            :class="(item.status == 'sent') ? 'message-sent' : ''">
-                            <div class="message" :class="(item.status == 'sent') ? 'bg-green' : 'bg-white'">
-                                <span class="font-size-15">{{ item.message }}</span>
-                                <span class="font-size-10 text-grey absolute">{{ splitDate(item.date) }}</span>
-                            </div>
+                            <li class="list-item" v-for="(item, index) in contacts[chat_active].messages" :class="(item.status == 'sent') ? 'message-sent' : ''">
+                                <div class="message" :class="(item.status == 'sent') ? 'bg-green' : 'bg-white'">
+                                    <span class="font-size-15">{{ item.message }}</span>
+                                    <span class="font-size-10 text-grey absolute">{{ splitDate(item.date) }}</span>
+                                </div>
                             </li>
                         </ul>
                     </div>
