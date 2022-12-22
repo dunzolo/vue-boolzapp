@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.1.1/luxon.min.js" integrity="sha512-hZKz8wkgOcWeZanRioE6H6AC3OJspzJQyDBB5jLoZ1jIKbYDt5MwVIvU703WwE4sjvKZw9uNmmYlt29xKS27RA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link rel="stylesheet" href="./css/style.css">
         <title>Document</title>
     </head>
@@ -15,8 +16,8 @@
                 <div class="sidebar">
                     <div class="top-sidebar">
                         <div class="image-contact">
-                            <img src="./img/avatar_io.jpg">
-                            <span>Sofia</span>
+                            <img :src="`./img/avatar${user.avatar}.jpg`">
+                            <span>{{ user.name }}</span>
                         </div>
                         <div class="icons-top margin-right-10">
                             <ul class="unstyled-list">
@@ -35,13 +36,13 @@
                     </div>
                     <div class="searchbar-sidebar">
                         <i class="fa-solid fa-magnifying-glass text-grey bg-white"></i>
-                        <input type="text" placeholder="Cerca o inizia una nuova chat" class="full-searchbar" name="" id="">
+                        <input type="text" placeholder="Cerca o inizia una nuova chat" class="full-searchbar" name="searchbar" id="searchbar" v-model="name_filter">
                     </div>
                     <div class="chat-sidebar">
                         <ul class="unstyled-list">
-                            <li class="item-chat" v-for="(item, index) in contacts" :class="(chat_active == index) ? 'active' : ''" @click="changeChat(index)">
+                            <li class="item-chat" v-for="(item, index) in searchChat" :class="(chat_active == index) ? 'active' : ''" @click="changeChat(index)">
                                 <div class="image-contact">
-                                    <img :src="`./img/${item.avatar}`">
+                                    <img :src="`./img/avatar${item.avatar}.jpg`">
                                 </div>
                                 <div class="info-contact">
                                     <span>{{ item.name }}</span>
@@ -56,7 +57,7 @@
                     <div class="top-main-container">
                         <div class="user-main-container">
                             <div class="image-contact">
-                                <img :src="`./img/${contacts[chat_active].avatar}`">
+                                <img :src="`./img/avatar${contacts[chat_active].avatar}.jpg`">
                             </div>
                             <div class="info-contact">
                                 <span>{{ contacts[chat_active].name }}</span>

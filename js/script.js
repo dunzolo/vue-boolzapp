@@ -7,10 +7,15 @@ createApp({
         return {
             chat_active: 0,
             new_message: '',
+            name_filter: '',
+            user: {
+                name: 'Sofia',
+                avatar: '_io'
+            },
             contacts: [
                 {
                     name: 'Michele',
-                    avatar: 'avatar_1.jpg',
+                    avatar: '_1',
                     visible: true,
                     messages: [
                         {
@@ -32,7 +37,7 @@ createApp({
                 },
                 {
                     name: 'Fabio',
-                    avatar: 'avatar_2.jpg',
+                    avatar: '_2',
                     visible: true,
                     messages: [
                         {
@@ -54,7 +59,7 @@ createApp({
                 },
                 {
                     name: 'Samuele',
-                    avatar: 'avatar_3.jpg',
+                    avatar: '_3',
                     visible: true,
                     messages: [
                         {
@@ -76,7 +81,7 @@ createApp({
                 },
                 {
                     name: 'Alessandro B.',
-                    avatar: 'avatar_4.jpg',
+                    avatar: '_4',
                     visible: true,
                     messages: [
                         {
@@ -93,7 +98,7 @@ createApp({
                 },
                 {
                     name: 'Alessandro L.',
-                    avatar: 'avatar_5.jpg',
+                    avatar: '_5',
                     visible: true,
                     messages: [
                         {
@@ -110,7 +115,7 @@ createApp({
                 },
                 {
                     name: 'Claudia',
-                    avatar: 'avatar_6.jpg',
+                    avatar: '_6',
                     visible: true,
                     messages: [
                     {
@@ -133,7 +138,19 @@ createApp({
             ]
         }
     },
-    created(){
+    computed:{
+        searchChat(){
+            let filteredChat;
+            if(this.name_filter != ''){
+                filteredChat = this.contacts.filter((elem) => {
+                    return elem.name.toLowerCase().includes(this.name_filter);
+                })
+            }
+            else{
+                filteredChat = this.contacts;
+            }
+            return filteredChat;
+        }
         
     },    
     methods: {

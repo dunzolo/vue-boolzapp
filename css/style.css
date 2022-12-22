@@ -4,6 +4,21 @@
     box-sizing: border-box;
 }
 
+#app{
+    position: relative;
+    height: 100vh;
+    background-color: #009688;
+    background-image:
+      linear-gradient(
+        to bottom, 
+        #009688,
+        #009688 15%,
+        #DCDBD2 15%,
+        #DCDBD2 85%,
+        #DCDBD2 85%
+    );
+}
+
 /* utils */
 .absolute{
     position: absolute;
@@ -18,9 +33,15 @@
 
 .container{
     max-width: 991px;
-    margin: 20px auto;
-    height: calc(100vh - 40px);
+    /* margin: 20px auto; */
+    height: calc(100% - 40px);
     display: flex;
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .bg-green{
