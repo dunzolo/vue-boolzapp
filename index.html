@@ -39,16 +39,16 @@
                         <input type="text" placeholder="Cerca o inizia una nuova chat" class="full-searchbar" name="searchbar" id="searchbar" v-model="name_filter">
                     </div>
                     <div class="chat-sidebar">
-                        <ul class="unstyled-list" v-for="(item, index) in searchChat">
-                            <li v-if="item.visible" class="item-chat" :class="(chat_active == index) ? 'active' : ''" @click="changeChat(index)">
+                        <ul class="unstyled-list" >
+                            <li v-for="(item, index) in searchChat" class="item-chat" :class="(chat_active == index) ? 'active' : ''" @click="changeChat(index)">
                                 <div class="image-contact">
                                     <img :src="`./img/avatar${item.avatar}.jpg`">
                                 </div>
                                 <div class="info-contact">
                                     <span>{{ item.name }}</span>
-                                    <span class="font-size-12 text-grey">{{ lastMessage(index) }}</span>
+                                    <span class="font-size-12 text-grey">{{ lastMessage(index, searchChat) }}</span>
                                 </div>
-                                <span class="hour-last-message font-size-12 text-grey">{{ hourLastMessage(index) }}</span>
+                                <span class="hour-last-message font-size-12 text-grey">{{ hourLastMessage(index, searchChat) }}</span>
                             </li> 
                         </ul>
                     </div>
@@ -82,7 +82,7 @@
                                     <span><i class="fa-solid fa-caret-down text-grey absolute-top" @click="dropdown(index)"></i></span>
                                     <div class="dropdown active" v-if="message_active.show && message_active.index == index">
                                         <p>Informazioni</p>
-                                        <p @click="deleteMessage(index)">Cancella messaggio</p>
+                                        <p @click="deleteMessage(index, searchChat[chat_active].messages)">Cancella messaggio</p>
                                     </div>
                                 </div>
                             </li>

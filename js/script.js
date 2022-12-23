@@ -178,6 +178,7 @@ createApp({
                 filteredChat = this.contacts.filter((elem) => {
                     return elem.name.toLowerCase().includes(this.name_filter);
                 })
+                return filteredChat;
             }
             else{
                 filteredChat = this.contacts;
@@ -225,28 +226,38 @@ createApp({
         },
         hourLastMessageSent(index){
             let messages = this.contacts[index].messages;
-            let filter_messages = messages.filter((elem) => {
-                return elem.status.includes('received');
-            })
-            let date = this.splitDate(filter_messages[filter_messages.length - 1].date);
-            return date;
-        },
-        hourLastMessage(index){
-            let messages = this.contacts[index].messages;
-            let hour_last_message = this.splitDate(messages[messages.length - 1].date);
-            return hour_last_message;
-        },
-        lastMessage(index){
-            let messages = this.contacts[index].messages;
-            let last_message = messages[messages.length-1].message;
-            if(last_message.length > 25){
-                last_message = last_message.substring(0,25) + '...'
+            if(messages.length > 0){
+                for(let i = 0; i < messages.length; i++){
+                    if(messages[i].status.includes('received')){
+                        let filter_messages = messages.filter((elem) => {
+                            return elem.status.includes('received');
+                        })
+                        let date = this.splitDate(filter_messages[filter_messages.length - 1].date);
+                        return date;
+                    }
+                }
             }
-            else{
-                return last_message
+        },
+        hourLastMessage(index, filteredChat){
+            let messages = filteredChat[index].messages;
+            if(messages.length > 0){
+                let hour_last_message = this.splitDate(messages[messages.length - 1].date);
+                return hour_last_message;
             }
-            return last_message;
-            
+        },
+        lastMessage(index, filteredChat){
+            let messages = filteredChat[index].messages;
+            if(messages.length > 0){
+                let last_message = messages[messages.length-1].message;
+                if(last_message.length > 25){
+                    last_message = last_message.substring(0,25) + '...'
+                }
+                else{
+                    return last_message
+                }
+                return last_message;
+            }
+            console.log(this.chat_active);
         },
         generateNewDate(){
             // let today = new Date();
@@ -275,10 +286,10 @@ createApp({
                 this.message_active.show = false
             }
          },
-         deleteMessage(index){
-            let messages = this.contacts[this.chat_active].messages;
-            messages = messages.splice(index, 1);
+         deleteMessage(index, filteredChat){
+            filteredChat = filteredChat.splice(index, 1);
             this.dropdown(index);
+            return filteredChat; 
          }
     },
 }).mount('#app')
