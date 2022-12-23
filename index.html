@@ -58,10 +58,10 @@
                     <div class="top-main-container">
                         <div class="user-main-container">
                             <div class="image-contact">
-                                <img :src="`./img/avatar${contacts[chat_active].avatar}.jpg`">
+                                <img :src="`./img/avatar${searchChat[chat_active].avatar}.jpg`">
                             </div>
                             <div class="info-contact">
-                                <span>{{ contacts[chat_active].name }}</span>
+                                <span>{{ searchChat[chat_active].name }}</span>
                                 <span class="font-size-12 text-grey">Ultimo accesso oggi alle {{ hourLastMessageSent(chat_active)}}</span>
                             </div>
                         </div>
@@ -75,10 +75,15 @@
                     </div>
                     <div class="chat-container">
                         <ul class="unstyled-list">
-                            <li class="list-item" v-for="(item, index) in contacts[chat_active].messages" :class="(item.status == 'sent') ? 'message-sent' : ''">
+                            <li class="list-item" v-for="(item, index) in searchChat[chat_active].messages" :class="(item.status == 'sent') ? 'message-sent' : ''">
                                 <div class="message" :class="(item.status == 'sent') ? 'bg-green' : 'bg-white'">
                                     <span class="font-size-15">{{ item.message }}</span>
-                                    <span class="font-size-10 text-grey absolute">{{ splitDate(item.date) }}</span>
+                                    <span class="font-size-10 text-grey absolute-bottom">{{ splitDate(item.date) }}</span>
+                                    <span><i class="fa-solid fa-caret-down text-grey absolute-top" @click="dropdown(index)"></i></span>
+                                    <div class="dropdown active" v-if="message_active.show && message_active.index == index">
+                                        <p>Informazioni</p>
+                                        <p @click="deleteMessage(index)">Cancella messaggio</p>
+                                    </div>
                                 </div>
                             </li>
                         </ul>

@@ -1,3 +1,5 @@
+const dt = luxon.DateTime;
+
 const{
     createApp
 } = Vue
@@ -8,6 +10,10 @@ createApp({
             chat_active: 0,
             new_message: '',
             name_filter: '',
+            message_active: {
+                index: false,
+                show: false
+            },
             user: {
                 name: 'Sofia',
                 avatar: '_io'
@@ -146,25 +152,38 @@ createApp({
     },
     computed:{
         searchChat(){
+            // let filteredChat;
+            // if(this.name_filter != ''){
+            //     for(let i = 0; i < this.contacts.length; i++){
+            //         if(this.contacts[i].name.toLowerCase().includes(this.name_filter)){
+            //             this.contacts[i].visible = true
+            //         }
+            //         else{
+            //             this.contacts[i].visible = false
+            //         }
+            //     }
+            //     filteredChat = this.contacts;
+            // }
+            // else{
+            //     for(let i = 0; i < this.contacts.length; i++){
+            //         this.contacts[i].visible = true
+            //     }
+            //     filteredChat = this.contacts;
+            // }
+            // return filteredChat;
+
+            
             let filteredChat;
             if(this.name_filter != ''){
-                for(let i = 0; i < this.contacts.length; i++){
-                    if(this.contacts[i].name.toLowerCase().includes(this.name_filter)){
-                        this.contacts[i].visible = true
-                    }
-                    else{
-                        this.contacts[i].visible = false
-                    }
-                }
-                filteredChat = this.contacts;
+                filteredChat = this.contacts.filter((elem) => {
+                    return elem.name.toLowerCase().includes(this.name_filter);
+                })
             }
             else{
-                for(let i = 0; i < this.contacts.length; i++){
-                    this.contacts[i].visible = true
-                }
                 filteredChat = this.contacts;
             }
             return filteredChat;
+            
         }
         
     },    
@@ -175,6 +194,8 @@ createApp({
             return new_date;
         },
         changeChat(index){
+            this.message_active.index = false;
+            this.message_active.show = false;
             this.chat_active = index
         },
         sendNewMessage(){
@@ -205,7 +226,7 @@ createApp({
         hourLastMessageSent(index){
             let messages = this.contacts[index].messages;
             let filter_messages = messages.filter((elem) => {
-                return elem.status.includes('sent');
+                return elem.status.includes('received');
             })
             let date = this.splitDate(filter_messages[filter_messages.length - 1].date);
             return date;
@@ -228,15 +249,36 @@ createApp({
             
         },
         generateNewDate(){
-            let today = new Date();
-            let new_date = today.getDate() + '/' + 
-                (today.getMonth()+1) + '/' + 
-                today.getFullYear() + ' ' + 
-                today.getHours() + ':' + 
-                ((today.getMinutes()<10 ? '0' : '') + today.getMinutes()) + ':' + 
-                ((today.getSeconds()<10 ? '0' : '') + today.getSeconds());
+            // let today = new Date();
+            // let new_date = today.getDate() + '/' + 
+            //     (today.getMonth()+1) + '/' + 
+            //     today.getFullYear() + ' ' + 
+            //     today.getHours() + ':' + 
+            //     ((today.getMinutes()<10 ? '0' : '') + today.getMinutes()) + ':' + 
+            //     ((today.getSeconds()<10 ? '0' : '') + today.getSeconds());
 
-            return new_date;
-        }
+            let now = dt.now().setLocale('it').toLocaleString(dt.DATETIME_SHORT_WITH_SECONDS);
+            
+            return now;
+        },
+        dropdown(index){
+            if(!(this.message_active.show)){
+                if(this.message_active.index != false && this.message_active.index != index){
+                    this.message_active.index = false;
+                    this.message_active.show = false;
+                }
+    
+                this.message_active.index = index;
+                this.message_active.show = true;
+            }
+            else{
+                this.message_active.show = false
+            }
+         },
+         deleteMessage(index){
+            let messages = this.contacts[this.chat_active].messages;
+            messages = messages.splice(index, 1);
+            this.dropdown(index);
+         }
     },
 }).mount('#app')
