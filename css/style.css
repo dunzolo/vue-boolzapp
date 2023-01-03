@@ -261,9 +261,13 @@
     padding: 10px;
 }
 
-.emoji, .microphone{
+.emoji{
     width: 10%;
     text-align: center;
+}
+
+.emoji i{
+    cursor: pointer;
 }
 
 .dropdown{

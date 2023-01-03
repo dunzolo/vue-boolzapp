@@ -20,7 +20,6 @@ createApp({
             },
             contacts: [
                 {
-                    id: 0,
                     name: 'Michele',
                     avatar: '_1',
                     visible: true,
@@ -43,7 +42,6 @@ createApp({
                     ],
                 },
                 {
-                    id: 1,
                     name: 'Fabio',
                     avatar: '_2',
                     visible: true,
@@ -66,7 +64,6 @@ createApp({
                     ],
                 },
                 {
-                    id: 2,
                     name: 'Samuele',
                     avatar: '_3',
                     visible: true,
@@ -89,7 +86,6 @@ createApp({
                     ],
                 },
                 {
-                    id: 3,
                     name: 'Alessandro B.',
                     avatar: '_4',
                     visible: true,
@@ -107,7 +103,6 @@ createApp({
                     ],
                 },
                 {
-                    id: 4,
                     name: 'Alessandro L.',
                     avatar: '_5',
                     visible: true,
@@ -125,7 +120,6 @@ createApp({
                     ],
                 },
                 {
-                    id: 5,
                     name: 'Claudia',
                     avatar: '_6',
                     visible: true,
@@ -171,7 +165,6 @@ createApp({
             //     filteredChat = this.contacts;
             // }
             // return filteredChat;
-
             
             let filteredChat;
             if(this.name_filter != ''){
@@ -184,9 +177,7 @@ createApp({
                 filteredChat = this.contacts;
             }
             return filteredChat;
-            
         }
-        
     },    
     methods: {
         splitDate(date){
@@ -200,29 +191,38 @@ createApp({
             this.chat_active = index
         },
         sendNewMessage(){
-            let new_date = this.generateNewDate();
-
-            let object = {
-                date: new_date,
-                message: this.new_message,
-                status: 'sent'
-            };
-
-            this.contacts[this.chat_active].messages.push(object);
-            this.new_message = '';
-
-            setTimeout(() => {
+            let change_status_type = document.getElementById("change-status-type");
+            if(this.new_message.trim()){
                 let new_date = this.generateNewDate();
-
+    
                 let object = {
                     date: new_date,
-                    message: 'ok',
-                    status: 'received'
-                }
-
+                    message: this.new_message,
+                    status: 'sent'
+                };
+                
                 this.contacts[this.chat_active].messages.push(object);
+                this.new_message = '';
 
-            },1000)
+                setTimeout(() => { change_status_type.innerText = "...sta scrivendo...";},500)
+    
+                setTimeout(() => {
+                    change_status_type.innerText = "Online";
+
+                    let new_date = this.generateNewDate();
+    
+                    let object = {
+                        date: new_date,
+                        message: 'ok',
+                        status: 'received'
+                    }
+    
+                    this.contacts[this.chat_active].messages.push(object);
+    
+                },3000)
+
+                setTimeout(() => { change_status_type.innerText = `Ultimo accesso alle ${this.hourLastMessageSent(this.chat_active)}`;}, 5000)
+            }
         },
         hourLastMessageSent(index){
             let messages = this.contacts[index].messages;
