@@ -300,10 +300,16 @@ createApp({
             return filteredChat;
          },
          deleteChat(chatActive, filteredChat){
-            filteredChat = filteredChat.splice(chatActive, 1);
-            this.dropdownDeleteMenu();
-            return filteredChat; 
-
+            if(chatActive == filteredChat.length -1){
+                filteredChat = filteredChat.splice(chatActive, 1);
+                this.dropdownDeleteMenu();
+                this.chat_active = chatActive - 1;
+            }
+            else{
+                filteredChat = filteredChat.splice(chatActive, 1);
+                this.dropdownDeleteMenu();
+            }
+            return filteredChat;
          },
          randomAnswer(){
             let random = Math.floor(Math.random() * this.computer_answers.length - 1)
