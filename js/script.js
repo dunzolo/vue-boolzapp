@@ -192,7 +192,8 @@ createApp({
         changeChat(index){
             this.message_active.index = false;
             this.message_active.show = false;
-            this.chat_active = index
+            this.chat_active = index;
+            this.delete_menu = false;
         },
         sendNewMessage(){
             let change_status_type = document.getElementById("change-status-type");
