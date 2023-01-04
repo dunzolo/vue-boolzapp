@@ -14,6 +14,9 @@ createApp({
                 index: false,
                 show: false
             },
+            computer_answers: [
+                'Ciao', 'Tutto bene', 'Sì, vengo anche io!', 'Termino l\'esercizio Boolean ed esco', 'Ok!', 'E tu come stai?', 'Ho comprato una macchina nuova', 'Ho rotto il telefono...'
+            ],
             user: {
                 name: 'Sofia',
                 avatar: '_io'
@@ -213,7 +216,7 @@ createApp({
     
                     let object = {
                         date: new_date,
-                        message: 'ok',
+                        message: this.randomAnswer(),
                         status: 'received'
                     }
     
@@ -290,6 +293,10 @@ createApp({
             filteredChat = filteredChat.splice(index, 1);
             this.dropdown(index);
             return filteredChat; 
+         },
+         randomAnswer(){
+            let random = Math.floor(Math.random() * this.computer_answers.length - 1)
+            return this.computer_answers[random];
          }
     },
 }).mount('#app')

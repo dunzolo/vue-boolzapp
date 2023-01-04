@@ -173,6 +173,7 @@
 
 .chat-sidebar li{
     cursor: pointer;
+    overflow-y: auto;
 }
 
 .icons-top ul li{
@@ -231,6 +232,7 @@
 .chat-container{
     height: calc(100% - 100px);
     padding: 2rem 3rem;
+    overflow-y: auto;
 }
 
 .list-item{
