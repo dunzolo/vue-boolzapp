@@ -10,6 +10,7 @@ createApp({
             chat_active: 0,
             new_message: '',
             name_filter: '',
+            delete_menu: false,
             message_active: {
                 index: false,
                 show: false
@@ -260,7 +261,6 @@ createApp({
                 }
                 return last_message;
             }
-            console.log(this.chat_active);
         },
         generateNewDate(){
             // let today = new Date();
@@ -294,9 +294,28 @@ createApp({
             this.dropdown(index);
             return filteredChat; 
          },
+         deleteAllMessages(filteredChat){
+            filteredChat = filteredChat.splice(0, filteredChat.length);
+            this.dropdownDeleteMenu();
+            return filteredChat;
+         },
+         deleteChat(chatActive, filteredChat){
+            filteredChat = filteredChat.splice(chatActive, 1);
+            this.dropdownDeleteMenu();
+            return filteredChat; 
+
+         },
          randomAnswer(){
             let random = Math.floor(Math.random() * this.computer_answers.length - 1)
             return this.computer_answers[random];
-         }
+         },
+         dropdownDeleteMenu(){
+            if(!this.delete_menu){
+                this.delete_menu = true
+            }
+            else{
+                this.delete_menu = false
+            }
+         },
     },
 }).mount('#app')

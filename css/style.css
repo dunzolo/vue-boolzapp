@@ -225,6 +225,10 @@
     border-left: 1px solid grey;
 }
 
+.icons-top ul li i{
+    cursor: pointer;
+}
+
 .user-main-container{
     display: flex;
 }
@@ -272,19 +276,27 @@
     cursor: pointer;
 }
 
-.dropdown{
+.dropdown, .dropdown-delete-menu{
     position: absolute;
     z-index: 1;
-    top: 20px;
-    right: 30px;
     padding: 10px;
 }
 
-.dropdown p{
+.dropdown{
+    top: 20px;
+    right: 30px;
+}
+
+.dropdown-delete-menu{
+    top: 50px;
+    right: 20px;
+}
+
+.dropdown p, .dropdown-delete-menu p{
     padding: 5px;
 }
 
-.dropdown p:hover{
+.dropdown p:hover, .dropdown-delete-menu p:hover{
     background-color: darkgrey;
     cursor: pointer;
 }

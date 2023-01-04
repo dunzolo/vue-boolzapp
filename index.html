@@ -67,10 +67,14 @@
                         </div>
                         <div class="icons-top margin-right-10">
                             <ul class="unstyled-list">
-                                <li class="text-grey"><i class="fa-solid fa-magnifying-glass"></i></li>
-                                <li class="text-grey"><i class="fa-solid fa-paperclip"></i></li>
-                                <li class="text-grey"><i class="fa-solid fa-ellipsis-vertical"></i></li>
+                                <li><i class="fa-solid fa-magnifying-glass text-grey"></i></li>
+                                <li><i class="fa-solid fa-paperclip text-grey"></i></li>
+                                <li><i class="fa-solid fa-ellipsis-vertical text-grey" @click="dropdownDeleteMenu"></i></li>
                             </ul>
+                        </div>
+                        <div v-if="delete_menu" class="dropdown-delete-menu active">
+                            <p @click="deleteChat(chat_active, searchChat)">Elimina chat</p>
+                            <p @click="deleteAllMessages(searchChat[chat_active].messages)">Elimina messaggi</p>
                         </div>
                     </div>
                     <div class="chat-container">
