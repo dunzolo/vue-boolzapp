@@ -22,9 +22,27 @@
                         <div class="icons-top margin-right-10">
                             <ul class="unstyled-list">
                                 <li class="text-grey"><i class="fa-solid fa-circle-notch"></i></li>
-                                <li class="text-grey"><i class="fa-solid fa-message"></i></li>
+                                <li class="text-grey"><i class="fa-solid fa-message" @click="showNewChat"></i></li>
                                 <li class="text-grey"><i class="fa-solid fa-ellipsis-vertical"></i></li>
                             </ul>
+                        </div>
+                        <div id="addNewChat" class="popup-newchat">
+                            <div class="popup-content">
+                                <h1>Nuova Chat</h1>
+                                <form class="form-conatainer">
+                                    <label for="name-contact"><b>Nuovo contatto</b></label>
+                                    <input type="text" placeholder="Inserisci nome" name="name-contact" v-model="new_name_contact" required>
+    
+                                    <label for="image-contact"><b>Immagine contatto</b></label>
+                                    <select name="image-contact">
+                                        <option value="">Scegli l'immagine del contatto..</option>
+                                        <option v-for="item in contacts" :value="item.avatar">{{ item.avatar }}</option>
+                                    </select>
+                                    <button @click="addNewChat">Inserisci</button>
+                                    <button>Annulla</button>
+                                </form>
+                                <span class="close" @click="closeNewChat">&times;</span>
+                            </div>
                         </div>
                     </div>
                     <div class="notify-sidebar">

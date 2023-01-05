@@ -9,6 +9,7 @@ createApp({
         return {
             chat_active: 0,
             new_message: '',
+            new_name_contact: '',
             name_filter: '',
             delete_menu: false,
             message_active: {
@@ -289,18 +290,18 @@ createApp({
             else{
                 this.message_active.show = false
             }
-         },
-         deleteMessage(index, filteredChat){
+        },
+        deleteMessage(index, filteredChat){
             filteredChat = filteredChat.splice(index, 1);
             this.dropdown(index);
             return filteredChat; 
-         },
-         deleteAllMessages(filteredChat){
+        },
+        deleteAllMessages(filteredChat){
             filteredChat = filteredChat.splice(0, filteredChat.length);
             this.dropdownDeleteMenu();
             return filteredChat;
-         },
-         deleteChat(chatActive, filteredChat){
+        },
+        deleteChat(chatActive, filteredChat){
             if(chatActive == filteredChat.length -1){
                 filteredChat = filteredChat.splice(chatActive, 1);
                 this.dropdownDeleteMenu();
@@ -311,18 +312,39 @@ createApp({
                 this.dropdownDeleteMenu();
             }
             return filteredChat;
-         },
-         randomAnswer(){
+        },
+        randomAnswer(){
             let random = Math.floor(Math.random() * this.computer_answers.length - 1)
             return this.computer_answers[random];
-         },
-         dropdownDeleteMenu(){
+        },
+        dropdownDeleteMenu(){
             if(!this.delete_menu){
                 this.delete_menu = true
             }
             else{
                 this.delete_menu = false
             }
-         },
+        },
+        showNewChat(){
+            let new_chat = document.getElementById("addNewChat");
+            new_chat.style.display = "block";
+        },
+        closeNewChat(){
+            let new_chat = document.getElementById("addNewChat");
+            new_chat.style.display = "none";
+        },
+        addNewChat(){
+            // let newFilteredChat = this.searchChat;
+
+            let new_contact = {
+                name: this.new_name_contact,
+                avatar: '_1',
+                visible: true,
+                messages: []
+            }
+
+            this.contacts.push(new_contact);
+            return this.contacts;
+        }
     },
 }).mount('#app')
